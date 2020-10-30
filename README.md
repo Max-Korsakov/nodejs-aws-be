@@ -8,7 +8,7 @@ CloudFront Adress
 
 ## Tasks
 
-1.Create a lambda functions under the same serverless.yml - done (Used serverless.json to specify types, because used typesctipt)
+1.Create a lambda functions under the same serverless.yml - done (Used serverless.ts to specify types, because used typesctipt)
 
 - endpoints:
   GET - https://320ihl0yyc.execute-api.eu-west-1.amazonaws.com/dev/product
