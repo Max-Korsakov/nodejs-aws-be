@@ -32,5 +32,5 @@ Additional  tasks :
 - Main error scenarious are handled by API - done  (see error handler)
 
 FE repository
-[https://github.com/Max-Korsakov/nodejs-aws-fe](FE repository)
+[https://github.com/Max-Korsakov/nodejs-aws-fe/](https://github.com/Max-Korsakov/nodejs-aws-fe/)
 
