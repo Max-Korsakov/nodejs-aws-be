@@ -1,0 +1,54 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "2020-10-30T14:28:46Z",
+    "title" : "dev-products-service"
+  },
+  "host" : "320ihl0yyc.execute-api.eu-west-1.amazonaws.com",
+  "basePath" : "/dev",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/product" : {
+      "get" : {
+        "responses" : {
+          "200" :{
+            "description" : "OK",
+            "examples": {
+              "application/json":  [{
+                "count": 4,
+                "description": "Short Product Description1",
+                "id": "7567ec4b-b10c-48c5-9345-fc73c48a80aa",
+                "price": 2.4,
+                "title": "book one"
+              }]
+           }
+          },
+          "500":{
+            "description" : "Error"
+          }
+         }
+      }
+    },
+    "/product/{id}" : {
+      "get" : {
+        "responses" : {
+          "200" :{
+            "description" : "OK",
+            "examples": {
+              "application/json":  {
+                "count": 4,
+                "description": "Short Product Description1",
+                "id": "7567ec4b-b10c-48c5-9345-fc73c48a80aa",
+                "price": 2.4,
+                "title": "book one"
+              }
+           }
+          },
+          "404":{
+            "description" : "Error"
+          }
+         }
+      }
+    }
+  }
+}
