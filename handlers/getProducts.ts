@@ -5,31 +5,33 @@ import {
   APIGatewayProxyResult,
 } from "aws-lambda";
 import "source-map-support/register";
+import { Client } from "pg";
 
-import { productList } from "../mock/productsMock";
-import { errorHandler, asyncRequestSimulation } from "../utils";
+import { errorHandler, logger } from "../utils";
+import {DatabaseConstantQueries, dbOptions} from '../constants';
+
+
 
 const getProducts: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent,
   _context: Context
 ): Promise<APIGatewayProxyResult> => {
+  const client = new Client(dbOptions);
+  await client.connect();
   try {
-    //async request imitation
-    const products = await asyncRequestSimulation(100, productList);
-    const availableProducts = products.filter((product) => {
-      if (product.count > 0) {
-        return product;
-      }
-    });
+    logger('GET')
+    let availableProducts = await client.query(DatabaseConstantQueries.getAllProducts);
     return {
       statusCode: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
-      body: JSON.stringify(availableProducts),
+      body: JSON.stringify(availableProducts["rows"]),
     };
   } catch (error) {
     return errorHandler(error);
+  } finally {
+    client.end();
   }
 };
 
