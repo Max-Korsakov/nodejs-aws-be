@@ -18,11 +18,12 @@ const createProduct: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
   try {
     const { title, description, price, count = 0 } = JSON.parse(event.body);
     logger('POST',title, description, price, count)
-    validateRequestBody(ProductBaseSchema, {title,description,price,count,});
+    validateRequestBody(ProductBaseSchema, {title,description,price,count});
+    await client.query('BEGIN')
     let createdProduct: any = await client.query(createProductQuery(title, description, price));
     if (!createdProduct) throw new Error(`Product was not created`);
     let currentCount = await client.query(createCountQuery(createdProduct["rows"][0].id, count));
-
+    await client.query('COMMIT')
     return {
       statusCode: 200,
       headers: {"Access-Control-Allow-Origin": "*"},
@@ -32,6 +33,7 @@ const createProduct: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
       }),
     };
   } catch (error) {
+    await client.query('ROLLBACK')
     return errorHandler(error);
   } finally {
     client.end();
