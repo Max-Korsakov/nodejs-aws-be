@@ -23,13 +23,13 @@ const getProductById: APIGatewayProxyHandler = async (
     let product = await client.query(
       `${DatabaseConstantQueries.getProductById}'${id}'`
     );
-    if (!product) throw new LambdaError("Product not found", 404);
+    if (!product["rows"][0]) throw new LambdaError("Product not found", 404);
     return {
       statusCode: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
-      body: JSON.stringify(product["rows"]),
+      body: JSON.stringify(product["rows"][0]),
     };
   } catch (error) {
     return errorHandler(error);
