@@ -8,10 +8,10 @@ CloudFront Adress
 
 ## Tasks
 
-1 - Task 4.1 is implemented - done (see add-data-scripts.sql)
-3 - TASK 4.2 is implemented lambda links are provided and returns data - done
-4 - TASK 4.3 is implemented lambda links are provided and products is stored in DB (call TASK 4.2 to see the product)
-5 - Your own Frontend application is integrated with product service (/products API) and products from product-service are represented on Frontend. Link to a working Front-End application is provided for cross-check reviewer.
+- 1 - Task 4.1 is implemented - done (see add-data-scripts.sql)
+- 2 - TASK 4.2 is implemented lambda links are provided and returns data - done
+- 3 - TASK 4.3 is implemented lambda links are provided and products is stored in DB (call TASK 4.2 to see the product)
+- 4 - Your own Frontend application is integrated with product service (/products API) and products from product-service are represented on Frontend. Link to a working Front-End application is provided for cross-check reviewer.
 
 endpoints:
   - get all products GET - https://320ihl0yyc.execute-api.eu-west-1.amazonaws.com/dev/product
