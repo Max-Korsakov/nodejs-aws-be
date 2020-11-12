@@ -8,23 +8,17 @@ CloudFront Adress
 
 ## Tasks
 
-- 1 - Task 4.1 is implemented - done (see add-data-scripts.sql)
-- 2 - TASK 4.2 is implemented lambda links are provided and returns data - done
-- 3 - TASK 4.3 is implemented lambda links are provided and products is stored in DB (call TASK 4.2 to see the product)
-- 4 - Your own Frontend application is integrated with product service (/products API) and products from product-service are represented on Frontend. Link to a working Front-End application is provided for cross-check reviewer.
+Reviewers should verify the lambda functions by invoking them through provided URLs.
 
-endpoints:
-  - get all products GET - https://320ihl0yyc.execute-api.eu-west-1.amazonaws.com/dev/product
-  - get product by id GET - https://320ihl0yyc.execute-api.eu-west-1.amazonaws.com/dev/product/{id}
-  - create product POST - https://320ihl0yyc.execute-api.eu-west-1.amazonaws.com/dev/product
+1 - File serverless.yml contains configuration for importProductsFile function - done
+3 - The importProductsFile lambda function returns a correct response which can be used to upload a file into the S3 bucket - done
+4 - Frontend application is integrated with importProductsFile lambda - done
+5 - The importFileParser lambda function is implemented and serverless.yml contains configuration for the lambda - done
 
-
-Additional  tasks :
-
-- POST/products lambda functions returns error 400 status code if product data is invalid - done (see custom error class and error handler)
-- All lambdas return error 500 status code on any error (DB connection, any unhandled error in code) -  done (see custom error class and error handler)
-- All lambdas do console.log for each incoming requests and their arguments done (see logger)
-- Transaction based creation of products - done
+Additional (optional) tasks
++1 - async/await is used in lambda functions - done
++1 - importProductsFile lambda is covered by unit tests (aws-sdk-mock can be used to mock S3 methods - done
++1 - At the end of the stream the lambda function should move the file from the uploaded folder into the parsed folder (move the file means that file should be copied into parsed folder, and then deleted from uploaded folder) - done
 
 FE repository
 [https://github.com/Max-Korsakov/nodejs-aws-fe/](https://github.com/Max-Korsakov/nodejs-aws-fe/)
