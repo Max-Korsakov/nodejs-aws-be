@@ -8,28 +8,23 @@ CloudFront Adress
 
 ## Tasks
 
-1.Create a lambda functions under the same serverless.yml - done (Used serverless.ts to specify types, because used typesctipt)
+- 1 - Task 4.1 is implemented - done (see add-data-scripts.sql)
+- 2 - TASK 4.2 is implemented lambda links are provided and returns data - done
+- 3 - TASK 4.3 is implemented lambda links are provided and products is stored in DB (call TASK 4.2 to see the product)
+- 4 - Your own Frontend application is integrated with product service (/products API) and products from product-service are represented on Frontend. Link to a working Front-End application is provided for cross-check reviewer.
 
-- endpoints:
-  GET - https://320ihl0yyc.execute-api.eu-west-1.amazonaws.com/dev/product
-  GET - https://320ihl0yyc.execute-api.eu-west-1.amazonaws.com/dev/product/{id}
+endpoints:
+  - get all products GET - https://320ihl0yyc.execute-api.eu-west-1.amazonaws.com/dev/product
+  - get product by id GET - https://320ihl0yyc.execute-api.eu-west-1.amazonaws.com/dev/product/{id}
+  - create product POST - https://320ihl0yyc.execute-api.eu-west-1.amazonaws.com/dev/product
 
-- functions:
-  getProducts: products-service-dev-getProducts
-  getProductById: products-service-dev-getProductById
-
-2. The getProducts lambda function returns a correct response - done (Application main page)
-   The getProductById lambda function returns a correct response - done (Application product page)
 
 Additional  tasks :
 
-- Async/await is used in lambda functions (delay request imitation in handlers) - done
-- ES6 modules are used for product-service implementation - done
-- Webpack is configured for product-service - done 
-- SWAGGER documentation is created for product-service -dene (see swagger.json)
-- Lambda handlers are covered by basic UNIT tests - done
-- Lambda handlers (getProductsList, getProductsById) code is written not in 1 single module (file) and separated in codebase. - done
-- Main error scenarious are handled by API - done  (see error handler)
+- POST/products lambda functions returns error 400 status code if product data is invalid - done (see custom error class and error handler)
+- All lambdas return error 500 status code on any error (DB connection, any unhandled error in code) -  done (see custom error class and error handler)
+- All lambdas do console.log for each incoming requests and their arguments done (see logger)
+- Transaction based creation of products - done
 
 FE repository
 [https://github.com/Max-Korsakov/nodejs-aws-fe/](https://github.com/Max-Korsakov/nodejs-aws-fe/)
