@@ -6,18 +6,22 @@ import {
 } from "aws-lambda";
 import "source-map-support/register";
 import * as csv from "csv-parser";
+import * as AWS from "aws-sdk";
 
 import { s3 } from "../constants";
+
+const bucket = process.env.BUCKET
 
 const importFileParser: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent,
   _context: Context
 ): Promise<APIGatewayProxyResult> => {
+  const sqs = new AWS.SQS();
   try {
     await Promise.all(
       (event as any).Records.map(async (record) => {
         let params = {
-          Bucket: "node-aws-import",
+          Bucket: bucket,
           Key: record.s3.object.key,
         };
         await new Promise((resolve, reject) => {
@@ -25,7 +29,16 @@ const importFileParser: APIGatewayProxyHandler = async (
             .createReadStream()
             .pipe(csv())
             .on("data", (data) => {
-              console.log(data);
+              sqs.sendMessage(
+                {
+                  QueueUrl: process.env.SQS_URL,
+                  MessageBody: JSON.stringify(data),
+                },
+                (error, d) => {
+                  console.log(JSON.stringify(data), ` was sent`);
+                  console.log(error, d);
+                }
+              );
             })
             .on("error", (error) => {
               console.log(error);
@@ -33,12 +46,12 @@ const importFileParser: APIGatewayProxyHandler = async (
             })
             .on("end", async () => {
               let copyParams = {
-                Bucket: "node-aws-import",
-                CopySource: `node-aws-import/${record.s3.object.key}`,
+                Bucket: bucket,
+                CopySource: `${bucket}/${record.s3.object.key}`,
                 Key: record.s3.object.key.replace("uploaded", "parsed"),
               };
               let deleteParams = {
-                Bucket: "node-aws-import",
+                Bucket: bucket,
                 Key: record.s3.object.key,
               };
               await s3.copyObject(copyParams).promise();

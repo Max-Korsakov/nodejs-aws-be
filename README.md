@@ -2,23 +2,22 @@
 
 ## AWS Data
 
-CloudFront Adress
+CloudFront Adress 
 
 [https://d1j0a2cxkc2yn9.cloudfront.net/](https://d1j0a2cxkc2yn9.cloudfront.net/)
 
 ## Tasks
 
-Reviewers should verify the lambda functions by invoking them through provided URLs.
+Reviewers should verify the lambda functions, SQS and SNS topic and subscription in PR.
 
-- 1 - File serverless.yml contains configuration for importProductsFile function - done
-- 3 - The importProductsFile lambda function returns a correct response which can be used to upload a file into the S3 bucket - done
-- 4 - Frontend application is integrated with importProductsFile lambda - done
-- 5 - The importFileParser lambda function is implemented and serverless.yml contains configuration for the lambda - done
+- 1 - File serverless.yml contains configuration for catalogBatchProcess function - done
+- 2 - File serverless.yml contains policies to allow lambda catalogBatchProcess function to interact with SNS and SQS - done
+- 3 - File serverless.yml contains configuration for SQS catalogItemsQueue - done
+- 4 - File serverless.yml contains configuration for SNS Topic createProductTopic and email subscription -dene
 
 Additional (optional) tasks
-- +1 - async/await is used in lambda functions - done
-- +1 - importProductsFile lambda is covered by unit tests (aws-sdk-mock can be used to mock S3 methods - done
-- +1 - At the end of the stream the lambda function should move the file from the uploaded folder into the parsed folder (move the file means that file should be copied into parsed folder, and then deleted from uploaded folder) - done
+- +1 - catalogBatchProcess lambda is covered by unit tests - done
+- +1 - set a Filter Policy for SNS createProductTopic in serverless.yml (Create an additional email subscription and distribute messages to different emails depending on the filter for any product attribute) - done
 
 FE repository
 [https://github.com/Max-Korsakov/nodejs-aws-fe/](https://github.com/Max-Korsakov/nodejs-aws-fe/)
