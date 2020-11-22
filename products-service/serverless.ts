@@ -1,6 +1,6 @@
 import type { Serverless } from "serverless/aws";
 
-const serverlessConfiguration: any = {
+const serverlessConfiguration: Serverless = {
   service: {
     name: "products-service",
     // app and org for use with dashboard.serverless.com
