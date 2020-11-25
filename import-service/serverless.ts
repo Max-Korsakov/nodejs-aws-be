@@ -83,24 +83,22 @@ const serverlessConfiguration: Serverless = {
         Properties: {
           Endpoint: "adwuno@gmail.com",
           Protocol: "email",
-          FilterPolicy: { count:[{"numeric": ["=", 0]}]},
+          FilterPolicy: { count: [{ numeric: ["=", 0] }] },
           TopicArn: {
             Ref: "SNSTopic",
           },
         },
-        
       },
       SNSNonZeroSubscription: {
         Type: "AWS::SNS::Subscription",
         Properties: {
           Endpoint: "engramby@gmail.com",
           Protocol: "email",
-          FilterPolicy: { count:[{"numeric": [">=", 1]}]},
+          FilterPolicy: { count: [{ numeric: [">=", 1] }] },
           TopicArn: {
             Ref: "SNSTopic",
           },
         },
-        
       },
     },
   },
@@ -112,6 +110,14 @@ const serverlessConfiguration: Serverless = {
           http: {
             method: "get",
             path: "import",
+            authorizer: {
+              name: "tokenAuth",
+              arn:
+                "arn:aws:lambda:eu-west-1:439907404579:function:authorization-service-dev-authorizer",
+              resultTtlInSeconds: 0,
+              identitySource: "method.request.header.Authorization",
+              type: "token",
+            },
             request: {
               parameters: {
                 querystrings: {
@@ -144,7 +150,7 @@ const serverlessConfiguration: Serverless = {
       events: [
         {
           sqs: {
-            batchSize: 1,//change to 5
+            batchSize: 5,
             arn: {
               "Fn::GetAtt": ["SQSQueue", "Arn"],
             },
