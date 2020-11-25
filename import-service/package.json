@@ -11,6 +11,8 @@
     "aws-sdk-mock": "^5.1.0",
     "csv-parser": "^2.3.3",
     "dotenv": "^8.2.0",
+    "joi": "^17.3.0",
+    "pg": "^8.5.1",
     "serverless-dotenv-plugin": "^3.1.0",
     "source-map-support": "^0.5.10"
   },

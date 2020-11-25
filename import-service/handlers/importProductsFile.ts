@@ -9,6 +9,8 @@ import "source-map-support/register";
 import { s3Config } from "../constants";
 import * as AWS from "aws-sdk";
 
+const bucket = process.env.BUCKET
+
 const importProductsFile: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent,
   _context: Context
@@ -16,7 +18,7 @@ const importProductsFile: APIGatewayProxyHandler = async (
   let s3  = new AWS.S3(s3Config);
   const name = event.queryStringParameters.name;
   let params = {
-    Bucket: "node-aws-import",
+    Bucket: bucket,
     Key: `uploaded/${name}`,
     Expires: 10000,
     ContentType: "text/csv",
