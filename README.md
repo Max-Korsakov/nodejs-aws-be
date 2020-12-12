@@ -8,12 +8,30 @@ CloudFront Adress
 
 ## Tasks
 
-- 1 - authorization-service is added to the repo, has correct basicAuthorizer lambda and correct serverless.yaml file - done
-- 3 - import-service serverless.yaml file has authorizer configuration for the importProductsFile lambda. Request to the importProductsFile lambda should work only with correct authorization_token being decoded and checked by basicAuthorizer lambda. Response should be in 403 HTTP status if access is denied for this user (invalid authorization_token) and in 401 HTTP status if Authorization header is not provided. - done
-- 5 - update client application to send Authorization: Basic authorization_token header on import. Client should get authorization_token value from browser localStorage https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage authorization_token = localStorage.getItem('authorization_token') - done
+Evaluation criteria (each mark includes previous mark criteria)
+Provide your reviewers with the link to the repo, product and CART services URLs and bff-service URL
+
+- 3 - A working and correct express application should be in the bff-service folder. - done 
+
+[https://github.com/Max-Korsakov/nodejs-aws-be/tree/task-7/bff-service](https://github.com/Max-Korsakov/nodejs-aws-be/tree/task-7/bff-service)
+
+- 5 - The bff-service should be deployed with Elastic Beanstalk. The bff-service call should be redirected to the appropriate service. The response from the bff-service should be the same as if the recipient service was called directly. - done
+
+[http://max-korsakov-bff-api-development.eu-west-1.elasticbeanstalk.com/](http://max-korsakov-bff-api-development.eu-west-1.elasticbeanstalk.com/)
+
 
 Additional (optional) tasks
-- +1 - Client application should display alerts for the responses in 401 and 403 HTTP statuses. This behavior should be added to the nodejs-aws-fe-main/src/index.tsx file - done
+- +1 - Add a cache at the bff-service level for a request to the getProductsList function of the product-service. The cache should expire in 2 minutes. - done
+How to test:
+Get products list
+Create new product
+Get products list - result shouldn’t have new product
+Wait more than 2 minutes
+
+Get products list - result should have new product
+- +1 - Use NestJS to create bff-service instead of express - done
+
+[https://github.com/Max-Korsakov/nodejs-aws-be/tree/task-7/bff-service-nest](https://github.com/Max-Korsakov/nodejs-aws-be/tree/task-7/bff-service-nest)
 
 FE repository
 [https://github.com/Max-Korsakov/nodejs-aws-fe/](https://github.com/Max-Korsakov/nodejs-aws-fe/)
